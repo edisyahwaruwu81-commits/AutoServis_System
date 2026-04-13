@@ -1,2 +1,28 @@
 node_modules/
 .env
+.next/
+dist/
+build/
+*.log
+.DS_Store
+
+# Frontend build artifacts
+frontend/.next/
+frontend/node_modules/
+frontend/build/
+frontend/dev/
+frontend/server/
+frontend/static/
+frontend/turbopack
+frontend/diagnostics
+frontend/cache
+frontend/types/routes.d.ts
+frontend/*.json
+!frontend/package.json
+!frontend/tsconfig.json
+!frontend/components.json
+
+# Backend build artifacts
+backend/node_modules/
+backend/dist/
+backend/*.log
