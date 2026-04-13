@@ -9,10 +9,12 @@ import { queueData, statusConfig } from "@/lib/data"
 export default function DashboardPage() {
   return (
     <div className="space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-foreground">Dashboard</h1>
-        <p className="text-muted-foreground">
-          Selamat datang di Sistem Informasi Bengkel Otomotif
+      <div className="flex flex-col gap-1">
+        <h1 className="text-3xl font-black tracking-tight text-foreground">
+          Dashboard <span className="text-primary">Overview</span>
+        </h1>
+        <p className="text-muted-foreground font-medium">
+          Selamat datang kembali, <span className="text-foreground font-bold">Administrator</span>. Hari ini cerah untuk servis kendaraan!
         </p>
       </div>
       <DashboardStats />

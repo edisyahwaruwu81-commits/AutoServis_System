@@ -5,7 +5,7 @@ import { TaskDetail } from "@/components/mechanic/task-detail"
 import { mockJobs } from "@/lib/mechanic-data"
 
 export default function JobDetailPage() {
-  const params = useParams()
+  const params = useParams() as { id: string }
   const router = useRouter()
   
   // Find job from data

@@ -12,7 +12,7 @@ import {
   CollapsibleTrigger,
 } from "@/components/ui/collapsible"
 import { cn } from "@/lib/utils"
-import type { Job } from "./job-list"
+import type { Job } from "@/lib/mechanic-data"
 
 interface ChecklistItem {
   id: string
@@ -116,10 +116,10 @@ export function TaskDetail({ job, onBack, onComplete }: TaskDetailProps) {
             variant="outline"
             className={cn(
               "text-xs font-semibold px-2 py-1",
-              statusConfig[job.status].className
+              statusConfig[job.status as keyof typeof statusConfig].className
             )}
           >
-            {statusConfig[job.status].label}
+            {statusConfig[job.status as keyof typeof statusConfig].label}
           </Badge>
         </div>
       </header>

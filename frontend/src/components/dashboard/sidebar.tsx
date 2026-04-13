@@ -8,6 +8,7 @@ import {
   Calculator,
   Wrench,
   ChevronLeft,
+  Package,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 
@@ -25,6 +26,7 @@ const menuItems = [
   { href: "/dashboard/pendaftaran", label: "Registration", icon: ClipboardPlus },
   { href: "/dashboard/spk", label: "Queue", icon: FileText },
   { href: "/dashboard/kasir", label: "Cashier", icon: Calculator },
+  { href: "/dashboard/inventori", label: "Inventory", icon: Package },
 ]
 
 export function Sidebar({
