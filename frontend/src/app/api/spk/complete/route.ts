@@ -59,7 +59,7 @@ export async function POST(request: Request) {
   }
 
   const warnings: Array<{ kode_part: string; nama: string; stok_sisa: number }> = []
-  const updateOperations = [] as Array<Promise<any>>
+  const updateOperations = [] as Array<(tx: any) => Promise<any>>
   let totalPart = 0
 
   for (const detail of spk.details) {
@@ -93,8 +93,8 @@ export async function POST(request: Request) {
       warnings.push({ kode_part: part.kode_part, nama: part.nama, stok_sisa: newStock })
     }
 
-    updateOperations.push(
-      prisma.sukuCadang.update({
+    updateOperations.push((tx) =>
+      tx.sukuCadang.update({
         where: { kode_part: part.kode_part },
         data: { stok: newStock },
       })
@@ -105,15 +105,15 @@ export async function POST(request: Request) {
   const grandTotal = totalPart + totalJasa
 
   try {
-    await prisma.$transaction([
-      ...updateOperations,
-      prisma.sPK.update({
+    await prisma.$transaction(async (tx) => {
+      await Promise.all(updateOperations.map((operation) => operation(tx)))
+      return tx.sPK.update({
         where: { no_spk },
         data: {
           status: 'SELESAI',
         },
-      }),
-    ])
+      })
+    })
 
     return NextResponse.json(
       {

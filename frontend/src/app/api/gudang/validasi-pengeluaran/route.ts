@@ -82,9 +82,8 @@ export async function POST(request: Request) {
       status: true,
       message: `Pengeluaran part untuk SPK ${no_spk} berhasil divalidasi.`,
       data: {
-        updatedParts: transactionResult
-          .slice(0, spk.details.length)
-          .map((item) => ({ kode_part: item.kode_part, stok: item.stok })),
+        updatedParts: (transactionResult.slice(0, spk.details.length) as Array<{ kode_part: string; stok: number }>)
+        .map((item) => ({ kode_part: item.kode_part, stok: item.stok })),
         warnings,
       },
     },

@@ -3,13 +3,14 @@ import prisma from '@/lib/prisma'
 
 export async function PUT(
   request: Request,
-  { params }: { params: { id: string } }
+  context: { params: Promise<{ id: string }> }
 ) {
-  const id = Number(params.id)
+  const { id } = await context.params
+  const numericId = Number(id)
   const body = await request.json().catch(() => null)
   const action = typeof body?.action === 'string' ? body.action.toUpperCase() : ''
 
-  if (!id || Number.isNaN(id) || !['APPROVE', 'REJECT'].includes(action)) {
+  if (!id || Number.isNaN(numericId) || !['APPROVE', 'REJECT'].includes(action)) {
     return NextResponse.json(
       {
         status: false,
@@ -20,7 +21,7 @@ export async function PUT(
   }
 
   const requestPart = await prisma.permintaanPart.findUnique({
-    where: { id },
+    where: { id: numericId },
     include: { spk: true, sukuCadang: true },
   })
 
@@ -42,7 +43,7 @@ export async function PUT(
 
   try {
     const updatedRequest = await prisma.permintaanPart.update({
-      where: { id },
+      where: { id: numericId },
       data: { status: newStatus },
     })
 

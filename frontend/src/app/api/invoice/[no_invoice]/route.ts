@@ -3,9 +3,9 @@ import prisma from '@/lib/prisma'
 
 export async function PUT(
   request: Request,
-  { params }: { params: { no_invoice: string } }
+  context: { params: Promise<{ no_invoice: string }> }
 ) {
-  const no_invoice = params.no_invoice
+  const { no_invoice } = await context.params
   const body = await request.json().catch(() => null)
   const status_pembayaran = typeof body?.status_pembayaran === 'string' ? body.status_pembayaran.toUpperCase() : ''
 
